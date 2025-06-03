@@ -7,7 +7,7 @@ Client portal system at `thelawshop.com` with path-based portals (`/portal/clien
 **Quality:** Frictionless, seamless, fast user experience
 
 ## Technology Stack
-9 core technologies for lightweight client portal development. Path-based architecture (`portal.thelawshop.com/client-id`) chosen over subdomains to allow a more minimal stack by eliminating DNS complexity and wildcard certificate management.
+Core technologies for lightweight client portal development. Path-based architecture (`portal.thelawshop.com/client-id`) chosen over subdomains to allow a more minimal stack by eliminating DNS complexity and wildcard certificate management.
 
 **Frontend & Framework**
 - **Next.js (App Router)** - Fullstack framework, eliminates separate backend
@@ -23,7 +23,7 @@ Client portal system at `thelawshop.com` with path-based portals (`/portal/clien
 - **npm** - Package management
 - **Vercel** - Next.js-optimized hosting
 - **ESLint + Prettier** - Code consistency
-- **Gmail API** - Email notifications from thelawshop.com domain
+- **SMTP/Nodemailer** - Email notifications via Google Workspace
 
 
 ## Technical Constraints
