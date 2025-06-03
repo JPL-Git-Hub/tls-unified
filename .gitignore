@@ -40,4 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Firebase Admin SDK
+lib/firebase-admin-key.json
+
 **/.claude/settings.local.json
