@@ -6,6 +6,7 @@ Client portal system at `thelawshop.com` with path-based portals (`/portal/clien
 
 **Scale:** Maximum 5,000 portals, 10-15 concurrent users
 **Quality:** Frictionless, seamless, fast user experience
+**Development:** Java 11+ (required for Firebase Firestore emulator)
 
 ## Technology Stack
 
