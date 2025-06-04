@@ -20,7 +20,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     return () => unsubscribe();
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     try {

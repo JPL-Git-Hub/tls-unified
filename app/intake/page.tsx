@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import { FirebaseError } from 'firebase/app';
 
 export default function ClientIntake() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,9 +26,11 @@ export default function ClientIntake() {
     try {
       const docRef = await addDoc(collection(db, 'clients'), clientData);
       router.push(`/portal/register?clientId=${docRef.id}&email=${clientData.email}`);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error creating client:', error);
-      alert('Error creating your portal. Please try again.');
+      const errorMessage = error instanceof FirebaseError ? 
+        (error as FirebaseError).message : 'Error creating your portal. Please try again.';
+      alert(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

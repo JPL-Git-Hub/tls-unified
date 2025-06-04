@@ -24,7 +24,7 @@ export default function PortalRegister() {
     if (clientIdParam) setClientId(clientIdParam);
   }, [searchParams]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
