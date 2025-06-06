@@ -129,8 +129,8 @@ export default function VerifyEmail() {
                   <ol className="space-y-3 text-gray-700 list-decimal list-inside">
                     <li>Check your email inbox for a verification link</li>
                     <li>Click the link in the email to verify your account</li>
-                    <li>If you don't see the email, check your spam folder</li>
-                    <li>After verification, you'll be able to access your client portal</li>
+                    <li>If you don&apos;t see the email, check your spam folder</li>
+                    <li>After verification, you&apos;ll be able to access your client portal</li>
                   </ol>
                 </div>
 
@@ -145,7 +145,7 @@ export default function VerifyEmail() {
                     onClick={handleCheckVerification}
                     className="w-full"
                   >
-                    I've Verified My Email
+                    I&apos;ve Verified My Email
                   </Button>
                   
                   <Button 
