@@ -136,8 +136,8 @@ body {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
+/* SINGLE UNIVERSAL BUTTON STYLE */
 .tls-button {
-  width: 100%;
   background-color: var(--tls-primary);
   color: var(--tls-background);
   font-weight: 600;
@@ -147,6 +147,17 @@ body {
   cursor: pointer;
   font-size: var(--tls-text-lg);
   transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  min-width: 160px;
+  width: 100%;
+}
+
+/* In flex containers, don't force full width */
+.flex .tls-button,
+.grid .tls-button {
+  width: auto;
 }
 
 .tls-button:hover:not(:disabled) {
@@ -170,3 +181,4 @@ body {
   color: var(--tls-error);
   font-size: var(--tls-text-sm);
 }
+

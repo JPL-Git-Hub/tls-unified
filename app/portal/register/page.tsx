@@ -62,52 +62,43 @@ export default function PortalRegister() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="text-center max-w-md w-full px-4">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">The Law Shop - Coming Soon</h1>
-
-        <div className="mb-6">
-          <p className="text-gray-600">Create your portal password</p>
+    <div className="tls-page">
+      <div className="tls-container">
+        <div className="tls-header">
+          <h1 className="tls-title">Create Your Portal</h1>
+          <p className="tls-subtitle">Set up your secure client portal access</p>
           <p className="text-sm text-gray-500 mt-1">{email}</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="tls-card">
           {error && (
-            <div className="p-3 bg-red-50 text-red-700 text-sm rounded text-left">
-              {error}
+            <div className="tls-error">
+              <p className="tls-error-text">{error}</p>
             </div>
           )}
           
-          <div>
-            <input
-              type="password"
-              placeholder="Password (minimum 6 characters)"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="tls-form">
+            <div className="tls-field">
+              <label className="tls-label">Password</label>
+              <input
+                type="password"
+                placeholder="Password (minimum 6 characters)"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="tls-input"
+              />
+            </div>
 
-          <div>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
-          >
-            {isSubmitting ? 'Creating Account...' : 'Create Portal Account'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="tls-button"
+            >
+              {isSubmitting ? 'Creating Account...' : 'Create Account'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -8,19 +8,19 @@ export default function Success() {
   const sessionId = searchParams.get('session_id');
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="mb-8">
+    <div className="tls-page">
+      <div className="tls-container">
+        <div className="tls-card">
+          <div className="tls-header">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="tls-title">
               Payment Successful!
             </h1>
-            <p className="text-gray-600 text-lg mb-6">
+            <p className="tls-subtitle">
               Thank you for choosing The Law Shop for your home closing legal services.
             </p>
           </div>
@@ -53,14 +53,13 @@ export default function Success() {
             <div className="space-y-4">
               <Link
                 href="/portal"
-                className="inline-block bg-black text-white font-semibold py-3 px-8 rounded-lg hover:bg-gray-800 transition-all duration-200"
+                className="tls-button"
               >
                 Access Client Portal
               </Link>
-              <br />
               <Link
                 href="/"
-                className="inline-block text-gray-600 hover:text-gray-900 transition-colors"
+                className="tls-button"
               >
                 Return to Home
               </Link>
