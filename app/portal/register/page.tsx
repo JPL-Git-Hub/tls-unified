@@ -47,6 +47,7 @@ export default function PortalRegister() {
     try {
       // Create the user account using direct Firebase Auth
       // No session cookies needed as we're using client-side auth only
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
       // Navigate to the client portal

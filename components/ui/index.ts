@@ -5,8 +5,5 @@ export * from './public/ErrorMessage';
 export * from './public/HeroBanner';
 export * from './public/Container';
 
-// Portal components
-export * from './portal/Button';
-export * from './portal/FormInput';
-export * from './portal/Card';
-export * from './portal/Badge';
+// Portal components are exported from ./portal/index.tsx
+// Import them directly from '@/components/ui/portal' to avoid conflicts
