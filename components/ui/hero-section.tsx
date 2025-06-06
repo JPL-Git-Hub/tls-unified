@@ -12,7 +12,7 @@ export function HeroSection() {
             href="/intake"
             className="bg-black dark:bg-white text-white dark:text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 text-lg min-w-[160px]"
           >
-            Hire Us
+            Become a Client
           </Link>
           <Link
             href="/contact"
