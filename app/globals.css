@@ -31,9 +31,8 @@ body {
 /* The Law Shop Design System */
 :root {
   /* TLS Brand Colors */
-  --tls-primary: #800080; /* Changed from black to purple */
-  --tls-primary-hover: #a000a0;
-  --tls-secondary: #ffff00; /* Yellow */
+  --tls-primary: #000000;
+  --tls-primary-hover: #374151;
   --tls-background: #ffffff;
   --tls-text-primary: #111827;
   --tls-text-secondary: #6b7280;
@@ -140,22 +139,6 @@ body {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Blinking Animation */
-@keyframes blink-colors {
-  0% { 
-    background-color: var(--tls-primary);
-    color: white; 
-  }
-  50% { 
-    background-color: var(--tls-secondary);
-    color: black;
-  }
-  100% { 
-    background-color: var(--tls-primary);
-    color: white;
-  }
-}
-
 /* SINGLE UNIVERSAL BUTTON STYLE */
 .tls-button {
   background-color: var(--tls-primary);
@@ -172,7 +155,6 @@ body {
   text-align: center;
   min-width: 160px;
   width: 100%;
-  animation: blink-colors 1.5s infinite;
 }
 
 /* In flex containers, don't force full width */
@@ -182,14 +164,12 @@ body {
 }
 
 .tls-button:hover:not(:disabled) {
-  filter: brightness(1.2);
-  animation-duration: 0.75s; /* Speed up the blinking on hover */
+  background-color: var(--tls-primary-hover);
 }
 
 .tls-button:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
-  animation: none; /* No blinking for disabled buttons */
 }
 
 .tls-error {
@@ -204,4 +184,3 @@ body {
   color: var(--tls-error);
   font-size: var(--tls-text-sm);
 }
-
