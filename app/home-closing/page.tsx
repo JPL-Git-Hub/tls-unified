@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function HomeClosing() {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,29 +12,22 @@ export default function HomeClosing() {
   const [phone, setPhone] = useState('');
   const router = useRouter();
 
-  const handlePayment = async () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: 300000,
-          productName: 'Home Closing Legal Services',
-          successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`,
-          cancelUrl: `${window.location.origin}/home-closing`,
-          clientData: { name, email, phone },
-        }),
+      // Create client record directly in Firestore
+      const clientRef = await addDoc(collection(db, 'clients'), {
+        name,
+        email,
+        phone,
+        service: 'home_closing',
+        status: 'submitted',
+        createdAt: new Date(),
       });
-
-      const { url } = await response.json();
       
-      if (url) {
-        window.location.href = url;
-      }
+      // Redirect to success page with client details
+      router.push(`/success?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&client_id=${clientRef.id}`);
     } catch (error) {
       console.error('Error creating checkout session:', error);
       alert('Something went wrong. Please try again.');
@@ -82,7 +77,7 @@ export default function HomeClosing() {
 
           <form className="tls-form mb-8" onSubmit={(e) => {
             e.preventDefault();
-            handlePayment();
+            handleSubmit();
           }}>
             <div className="tls-field">
               <label className="tls-label">Full Name</label>
@@ -125,7 +120,7 @@ export default function HomeClosing() {
               disabled={isLoading}
               className="tls-button"
             >
-              {isLoading ? 'Processing...' : 'Secure Payment with Stripe'}
+              {isLoading ? 'Submitting...' : 'Submit Application'}
             </button>
           </form>
 

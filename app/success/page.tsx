@@ -2,10 +2,17 @@
 
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function Success() {
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const clientId = searchParams.get('client_id');
+  const email = searchParams.get('email');
+  const name = searchParams.get('name');
+  const phone = searchParams.get('phone');
+
 
   return (
     <div className="tls-page">
@@ -18,7 +25,7 @@ export default function Success() {
               </svg>
             </div>
             <h1 className="tls-title">
-              Payment Successful!
+              Application Submitted!
             </h1>
             <p className="tls-subtitle">
               Thank you for choosing The Law Shop for your home closing legal services.
@@ -30,7 +37,7 @@ export default function Success() {
             <ul className="space-y-3 text-gray-700 text-left mb-8">
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 mt-1">1.</span>
-                We'll contact you within 24 hours to schedule your initial consultation
+                We&apos;ll contact you within 24 hours to schedule your initial consultation
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 mt-1">2.</span>
@@ -38,14 +45,14 @@ export default function Success() {
               </li>
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 mt-1">3.</span>
-                We'll coordinate with all parties to ensure a smooth closing process
+                We&apos;ll coordinate with all parties to ensure a smooth closing process
               </li>
             </ul>
 
-            {sessionId && (
+            {clientId && (
               <div className="bg-gray-50 p-4 rounded-lg mb-6">
                 <p className="text-sm text-gray-600">
-                  Transaction ID: <span className="font-mono">{sessionId}</span>
+                  Client ID: <span className="font-mono">{clientId}</span>
                 </p>
               </div>
             )}
