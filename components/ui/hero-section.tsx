@@ -6,10 +6,6 @@ export function HeroSection() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
           The Law Shop
-          <br />
-          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Legal Services Redefined
-          </span>
         </h1>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
