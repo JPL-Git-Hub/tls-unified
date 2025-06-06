@@ -59,6 +59,12 @@ export default function Success() {
 
             <div className="space-y-4">
               <Link
+                href={`/portal/register?email=${encodeURIComponent(email || '')}&clientId=${clientId || ''}`}
+                className="tls-button bg-green-600 hover:bg-green-700"
+              >
+                Register for Client Portal
+              </Link>
+              <Link
                 href="/portal"
                 className="tls-button"
               >
