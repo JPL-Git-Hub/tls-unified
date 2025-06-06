@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import { auth } from '@/lib/firebase';
+
+// User registration page - direct Firebase Auth implementation
+// After registration, user is redirected to their portal page
 
 export default function PortalRegister() {
   const [password, setPassword] = useState('');
@@ -12,6 +15,7 @@ export default function PortalRegister() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState('');
   const [clientId, setClientId] = useState('');
+  const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -26,26 +30,31 @@ export default function PortalRegister() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError('');
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setError('Passwords do not match');
       return;
     }
 
     if (password.length < 6) {
-      alert('Password must be at least 6 characters');
+      setError('Password must be at least 6 characters');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Create the user account using direct Firebase Auth
+      // No session cookies needed as we're using client-side auth only
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Navigate to the client portal
       router.push(`/portal/${clientId}`);
     } catch (error: unknown) {
       console.error('Error creating account:', error);
       const errorMessage = error instanceof FirebaseError ? error.message : 'Unknown error occurred';
-      alert('Error creating account: ' + errorMessage);
+      setError('Error creating account: ' + errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -62,6 +71,12 @@ export default function PortalRegister() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="p-3 bg-red-50 text-red-700 text-sm rounded text-left">
+              {error}
+            </div>
+          )}
+          
           <div>
             <input
               type="password"

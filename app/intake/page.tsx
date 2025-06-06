@@ -5,14 +5,22 @@ import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
+import { 
+  Button, 
+  FormInput, 
+  ErrorMessage, 
+  HeroBanner 
+} from '@/components/ui';
 
 export default function ClientIntake() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
 
     const formData = new FormData(e.currentTarget);
     const clientData = {
@@ -30,57 +38,48 @@ export default function ClientIntake() {
       console.error('Error creating client:', error);
       const errorMessage = error instanceof FirebaseError ? 
         (error as FirebaseError).message : 'Error creating your portal. Please try again.';
-      alert(errorMessage);
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="text-center max-w-md w-full px-4">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">The Law Shop - Coming Soon</h1>
+    <HeroBanner>
+      <h1 className="text-4xl font-bold text-gray-900 mb-8">The Law Shop - Coming Soon</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              name="name"
-              type="text"
-              placeholder="Full Name"
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <ErrorMessage>{error}</ErrorMessage>
+        
+        <FormInput
+          name="name"
+          type="text"
+          placeholder="Full Name"
+          required
+        />
 
-          <div>
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+        <FormInput
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
 
-          <div>
-            <input
-              name="phone"
-              type="tel"
-              placeholder="Phone"
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+        <FormInput
+          name="phone"
+          type="tel"
+          placeholder="Phone"
+          required
+        />
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
-          >
-            {isSubmitting ? 'Creating Portal...' : 'Create My Portal'}
-          </button>
-        </form>
-      </div>
-    </div>
+        <Button
+          type="submit"
+          fullWidth
+          isSubmitting={isSubmitting}
+        >
+          Create My Portal
+        </Button>
+      </form>
+    </HeroBanner>
   );
 }
