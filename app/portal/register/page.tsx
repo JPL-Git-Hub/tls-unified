@@ -2,9 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { auth } from '@/lib/firebase';
+import { FormInput, ErrorMessage, Button } from '@/components/ui/portal';
+
+// Form event types
+type FormEvent = React.FormEvent<HTMLFormElement>;
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 // User registration page - direct Firebase Auth implementation
 // After registration, user is redirected to their portal page
@@ -28,17 +33,29 @@ export default function PortalRegister() {
     if (clientIdParam) setClientId(clientIdParam);
   }, [searchParams]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const validateClientId = (id: string): boolean => {
+    // Client ID must be alphanumeric and 8 characters
+    return /^[A-Za-z0-9]{8}$/.test(id);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
 
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
+    // Client ID validation
+    if (!validateClientId(clientId)) {
+      setError('Invalid client ID. It must be 8 alphanumeric characters.');
       return;
     }
 
+    // Password validation
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError('Please enter a password that is at least 6 characters long.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('The passwords you entered do not match. Please try again.');
       return;
     }
 
@@ -46,16 +63,19 @@ export default function PortalRegister() {
 
     try {
       // Create the user account using direct Firebase Auth
-      // No session cookies needed as we're using client-side auth only
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
-      // Navigate to the client portal
-      router.push(`/portal/${clientId}`);
+      // Send email verification
+      await sendEmailVerification(userCredential.user);
+      
+      // Navigate to a verification page or the portal
+      router.push(`/portal/verify?email=${encodeURIComponent(email)}&clientId=${clientId}`);
     } catch (error: unknown) {
       console.error('Error creating account:', error);
-      const errorMessage = error instanceof FirebaseError ? error.message : 'Unknown error occurred';
-      setError('Error creating account: ' + errorMessage);
+      const errorMessage = error instanceof FirebaseError 
+        ? error.message.replace('Firebase: ', '').replace(/\([^)]*\)/, '') // Clean up Firebase error messages
+        : 'We encountered an unexpected error while creating your account. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -71,32 +91,48 @@ export default function PortalRegister() {
         </div>
 
         <div className="tls-card">
-          {error && (
-            <div className="tls-error">
-              <p className="tls-error-text">{error}</p>
-            </div>
-          )}
+          <ErrorMessage>{error}</ErrorMessage>
           
           <form onSubmit={handleSubmit} className="tls-form">
-            <div className="tls-field">
-              <label className="tls-label">Password</label>
-              <input
-                type="password"
-                placeholder="Password (minimum 6 characters)"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="tls-input"
-              />
-            </div>
+            <FormInput
+              label="Client ID"
+              type="text"
+              value={clientId}
+              onChange={(e: InputEvent) => setClientId(e.target.value)}
+              placeholder="Enter your 8-character client ID"
+              required
+              maxLength={8}
+              pattern="[A-Za-z0-9]{8}"
+              title="Client ID must be 8 alphanumeric characters"
+            />
 
-            <button
+            <FormInput
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e: InputEvent) => setPassword(e.target.value)}
+              placeholder="Enter a password (minimum 6 characters)"
+              required
+              minLength={6}
+            />
+
+            <FormInput
+              label="Confirm Password"
+              type="password"
+              value={confirmPassword}
+              onChange={(e: InputEvent) => setConfirmPassword(e.target.value)}
+              placeholder="Re-enter your password"
+              required
+              minLength={6}
+            />
+
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="tls-button"
+              className="w-full"
             >
               {isSubmitting ? 'Creating Account...' : 'Create Account'}
-            </button>
+            </Button>
           </form>
         </div>
       </div>
