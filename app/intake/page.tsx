@@ -45,41 +45,74 @@ export default function ClientIntake() {
   };
 
   return (
-    <HeroBanner>
-      <h1 className="text-4xl font-bold text-gray-900 mb-8">The Law Shop - Coming Soon</h1>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <ErrorMessage>{error}</ErrorMessage>
+    <div className="tls-page">
+      <div className="tls-container">
+        <div className="tls-header">
+          <h1 className="tls-title">
+            Schedule First Consult
+          </h1>
+          <p className="tls-subtitle">
+            Tell us about your legal needs and we'll get back to you within 24 hours
+          </p>
+        </div>
         
-        <FormInput
-          name="name"
-          type="text"
-          placeholder="Full Name"
-          required
-        />
+        <div className="tls-card">
+          {error && (
+            <div className="tls-error">
+              <p className="tls-error-text">{error}</p>
+            </div>
+          )}
+          
+          <form onSubmit={handleSubmit} className="tls-form">
+            <div className="tls-field">
+              <label className="tls-label">
+                Full Name
+              </label>
+              <input
+                name="name"
+                type="text"
+                placeholder="Your full name"
+                required
+                className="tls-input"
+              />
+            </div>
 
-        <FormInput
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-        />
+            <div className="tls-field">
+              <label className="tls-label">
+                Email
+              </label>
+              <input
+                name="email"
+                type="email"
+                placeholder="your.email@example.com"
+                required
+                className="tls-input"
+              />
+            </div>
 
-        <FormInput
-          name="phone"
-          type="tel"
-          placeholder="Phone"
-          required
-        />
+            <div className="tls-field">
+              <label className="tls-label">
+                Phone
+              </label>
+              <input
+                name="phone"
+                type="tel"
+                placeholder="(555) 123-4567"
+                required
+                className="tls-input"
+              />
+            </div>
 
-        <Button
-          type="submit"
-          fullWidth
-          isSubmitting={isSubmitting}
-        >
-          Create My Portal
-        </Button>
-      </form>
-    </HeroBanner>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="tls-button"
+            >
+              {isSubmitting ? 'Submitting...' : 'Schedule Consultation'}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -24,3 +24,149 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* The Law Shop Design System */
+:root {
+  /* TLS Brand Colors */
+  --tls-primary: #000000;
+  --tls-primary-hover: #374151;
+  --tls-background: #ffffff;
+  --tls-text-primary: #111827;
+  --tls-text-secondary: #6b7280;
+  --tls-border: #e5e7eb;
+  --tls-success: #10b981;
+  --tls-error: #ef4444;
+  
+  /* TLS Typography */
+  --tls-text-xs: 0.75rem;
+  --tls-text-sm: 0.875rem;
+  --tls-text-base: 1rem;
+  --tls-text-lg: 1.125rem;
+  --tls-text-xl: 1.25rem;
+  --tls-text-2xl: 1.5rem;
+  --tls-text-3xl: 1.875rem;
+  --tls-text-4xl: 2.25rem;
+  --tls-text-5xl: 3rem;
+  
+  /* TLS Spacing */
+  --tls-space-xs: 0.5rem;
+  --tls-space-sm: 0.75rem;
+  --tls-space-md: 1rem;
+  --tls-space-lg: 1.5rem;
+  --tls-space-xl: 2rem;
+  --tls-space-2xl: 3rem;
+  
+  /* TLS Radius */
+  --tls-radius: 0.75rem;
+}
+
+/* TLS Base Components */
+.tls-page {
+  min-height: 100vh;
+  background-color: var(--tls-background);
+  padding: var(--tls-space-2xl) var(--tls-space-lg);
+}
+
+.tls-container {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.tls-header {
+  text-align: center;
+  margin-bottom: var(--tls-space-2xl);
+}
+
+.tls-title {
+  font-size: var(--tls-text-4xl);
+  font-weight: 700;
+  color: var(--tls-text-primary);
+  margin-bottom: var(--tls-space-md);
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 1024px) {
+  .tls-title {
+    font-size: var(--tls-text-5xl);
+  }
+}
+
+.tls-subtitle {
+  color: var(--tls-text-secondary);
+  font-size: var(--tls-text-lg);
+}
+
+.tls-card {
+  background-color: var(--tls-background);
+  border: 1px solid var(--tls-border);
+  border-radius: var(--tls-radius);
+  padding: var(--tls-space-xl);
+}
+
+.tls-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tls-space-lg);
+}
+
+.tls-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.tls-label {
+  font-size: var(--tls-text-sm);
+  font-weight: 500;
+  color: var(--tls-text-primary);
+  margin-bottom: var(--tls-space-xs);
+}
+
+.tls-input {
+  width: 100%;
+  padding: var(--tls-space-sm) var(--tls-space-md);
+  border: 1px solid var(--tls-border);
+  border-radius: var(--tls-radius);
+  font-size: var(--tls-text-base);
+  transition: all 0.2s ease;
+}
+
+.tls-input:focus {
+  outline: none;
+  border-color: var(--tls-primary);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.tls-button {
+  width: 100%;
+  background-color: var(--tls-primary);
+  color: var(--tls-background);
+  font-weight: 600;
+  padding: var(--tls-space-md) var(--tls-space-xl);
+  border-radius: var(--tls-radius);
+  border: none;
+  cursor: pointer;
+  font-size: var(--tls-text-lg);
+  transition: all 0.2s ease;
+}
+
+.tls-button:hover:not(:disabled) {
+  background-color: var(--tls-primary-hover);
+}
+
+.tls-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.tls-error {
+  padding: var(--tls-space-md);
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--tls-radius);
+  margin-bottom: var(--tls-space-lg);
+}
+
+.tls-error-text {
+  color: var(--tls-error);
+  font-size: var(--tls-text-sm);
+}

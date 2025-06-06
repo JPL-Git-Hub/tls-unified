@@ -39,21 +39,20 @@ export default function HomeClosing() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Home Closing Legal Services
-            </h1>
-            <p className="text-gray-600 text-lg">
-              Professional legal representation for your home closing
-            </p>
-          </div>
-
-          <div className="border-t border-gray-200 pt-8">
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">What's Included:</h2>
+    <div className="tls-page">
+      <div className="tls-container">
+        <div className="tls-header">
+          <h1 className="tls-title">
+            Home Closing Legal Services
+          </h1>
+          <p className="tls-subtitle">
+            Professional legal representation for your home closing
+          </p>
+        </div>
+        
+        <div className="tls-card">
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">What's Included:</h2>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
                   <span className="text-green-500 mr-2">✓</span>
@@ -86,7 +85,7 @@ export default function HomeClosing() {
             <button
               onClick={handlePayment}
               disabled={isLoading}
-              className="w-full bg-black text-white font-semibold py-4 px-8 rounded-lg hover:bg-gray-800 transition-all duration-200 text-lg disabled:bg-gray-400"
+              className="tls-button"
             >
               {isLoading ? 'Processing...' : 'Secure Payment with Stripe'}
             </button>
