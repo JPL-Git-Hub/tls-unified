@@ -11,9 +11,6 @@ export function HeroSection() {
             Legal Services Redefined
           </span>
         </h1>
-        <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Professional legal expertise meets modern convenience. Get the legal help you need, when you need it, with transparent pricing and efficient service.
-        </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             href="/intake"
