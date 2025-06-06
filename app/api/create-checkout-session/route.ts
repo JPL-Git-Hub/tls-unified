@@ -1,17 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { db } from '@/lib/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set');
-}
+// Use a placeholder during build time to prevent build errors
+const stripeKey = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-12-18.acacia',
+const stripe = new Stripe(stripeKey, {
+  apiVersion: '2023-10-16',
 });
 
 export async function POST(request: NextRequest) {
   try {
-    const { amount, productName, successUrl, cancelUrl } = await request.json();
+    const { amount, productName, successUrl, cancelUrl, clientData } = await request.json();
+    
+    // Create the client record first
+    const clientRef = await addDoc(collection(db, 'clients'), {
+      name: clientData.name,
+      email: clientData.email,
+      phone: clientData.phone,
+      service: 'home_closing',
+      amount: amount,
+      status: 'pending_payment',
+      createdAt: new Date(),
+    });
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
