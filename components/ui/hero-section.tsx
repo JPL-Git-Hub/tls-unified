@@ -9,13 +9,13 @@ export function HeroSection() {
         </h1>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
-            href="/intake"
+            href="/home-closing"
             className="bg-black dark:bg-white text-white dark:text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 text-lg min-w-[160px]"
           >
             Become a Client
           </Link>
           <Link
-            href="/contact"
+            href="/intake"
             className="bg-black dark:bg-white text-white dark:text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 text-lg min-w-[160px]"
           >
             Schedule First Consult
