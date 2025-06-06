@@ -108,7 +108,7 @@ export default function VerifyEmail() {
             <p className="tls-subtitle">
               {isVerified 
                 ? 'Your email has been verified successfully!' 
-                : 'We\'ve sent a verification email to your inbox.'}
+                : 'We&apos;ve sent a verification email to your inbox.'}
             </p>
             {email && <p className="text-sm text-gray-500 mt-1">{email}</p>}
           </div>
