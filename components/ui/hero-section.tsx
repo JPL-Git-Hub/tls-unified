@@ -22,7 +22,7 @@ export function HeroSection() {
             href="/contact"
             className="bg-black dark:bg-white text-white dark:text-black font-semibold px-8 py-3 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 text-lg min-w-[160px]"
           >
-            Talk to Us
+            Schedule First Consult
           </Link>
         </div>
       </div>
